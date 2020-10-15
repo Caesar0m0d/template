@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n,k,vertex;
+int X[144],Y[144];
+vector <int> edges[144];
+vector <int> stk;
+bool viisit[144];
+int dfs(int pos){
+	viisit[pos]=true;
+	vertex++;
+	int i,tmp,siz = edges[pos].size();
+	for(i=0;i<siz;i++){
+		tmp = edges[pos][i];
+		if(!viisit[tmp]){
+			dfs(tmp);
+		}
+	}
+	return 1;
+}
+int main(){
+	int i,j,tmp,siz,cnt=1,ans=0;
+	scanf("%d",&n);
+	for(i=1;i<=n;i++){
+		for(j=1;j<=n;j++){
+			scanf("%d",&tmp);
+			if(tmp){
+				X[cnt] = i;
+				Y[cnt] = j;
+				cnt++;
+			}
+		}
+	}
+	for(i=1;i<=cnt;i++){
+		
+		for(j=1;j<i;j++){
+			if(X[i] == X[j] && abs(Y[i] - Y[j]) == 1){
+				edges[i].push_back(j);
+				edges[j].push_back(i);
+			}
+			if(abs(X[i] - X[j]) == 1 && Y[i] == Y[j]){
+				edges[i].push_back(j);
+				edges[j].push_back(i);
+			}
+		}
+	}
+	for(i=1;i<cnt;i++){
+		if(!viisit[i]){
+			vertex=0;
+			ans++;
+			dfs(i);
+			stk.push_back(vertex);
+		}
+	}
+	printf("%d\n",ans);
+	sort(stk.begin(),stk.end());
+	siz = stk.size();
+	for(i=0;i<siz;i++){
+		cout<<stk[i]<<" ";
+	}
+	cout<<endl;
+	return 0;
+}
