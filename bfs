@@ -1,0 +1,19 @@
+vector <int> Q;
+vector <int> edges[node];
+viisit[node];
+int bfs(){
+	int i,start = 0,end = 1,siz,tmp;
+	Q.push_back(pos);
+	while(start != end){
+		siz = edges[start].size();
+		for(i=0;i<siz;i++){
+			tmp = edges[start][i];
+			if(!viisit[tmp]){
+				Q.push_back(tmp);
+				end++;
+			}
+		}
+		start++;
+	}
+	return 0;
+}
