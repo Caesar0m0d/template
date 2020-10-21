@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+struct a{
+    int x,y,len;
+}n[10];
+ 
+struct cmp{
+    bool operator()(a t, a u){
+        return t.len < u.len;
+    }
+};
+ 
+priority_queue<a,vector<a>,cmp> pq;
+
+int main(){
+    n[1].x = 1;n[1].y = 2;n[1].len = 10;
+    n[2].x = 1;n[2].y = 2;n[2].len = 30;
+    n[3].x = 1;n[3].y = 2;n[3].len = 20;
+    pq.push(n[1]);pq.push(n[2]);pq.push(n[3]);
+    cout<<pq.top().len<<endl;
+    pq.pop();
+    cout<<pq.top().len<<endl;
+    return 0;
+}
