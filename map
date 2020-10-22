@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+string solution(vector<string> prt, vector<string> com) {
+    string ans =  "";
+    map <string,int> mp;
+    int i,siz = prt.size();
+    for(i=0;i<siz;i++){
+        if(mp.find(prt[i]) == mp.end()){
+            mp.insert(make_pair(prt[i],1));
+        }
+        else{
+            mp[prt[i]]++;
+        }
+    }
+    siz = com.size();
+    for(i=0;i<siz;i++){
+        mp[com[i]]--;
+    }
+    siz = prt.size();
+    for(i=0;i<siz;i++){
+        if(mp[prt[i]]){
+            ans = prt[i];
+            break;
+        }
+    }
+    return ans;
+}
