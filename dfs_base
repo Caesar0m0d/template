@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+#define casee 10
+using namespace std;
+vector <int> edges[300];
+bool visiit[300];
+int dfs(int pos){
+	int i,siz=edges[pos].size(),rtn=1;
+	visiit[pos] = 1;
+	if(/*arr[X[pos]][Y[pos]] == 3*/)return 0;
+	for(i=0;i<siz;i++){
+		if(!visiit[edges[pos][i]]){
+			rtn = dfs(edges[pos][i]);
+		}
+		if(!rtn)break;
+	}
+	return rtn;
+}
