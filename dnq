@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int siz,ans;
+int * arr;
+int	recur(int bgn, int endd){
+	int i,div=(bgn+endd)/2,tmp,tmp2,rtn,lower,upper;
+	if(bgn == endd)return bgn;
+	tmp = recur(bgn,div);
+	tmp2 = recur(div+1,endd);
+	if(arr[tmp] > arr[tmp2]){
+		rtn = tmp;
+	}
+	else	rtn = tmp2;
+    
+	
+	return rtn;
+}
+int main(){
+	ans = 0;
+	int arr2[] = {0,1,4,7,4,1,6,7,8,0};
+	arr = arr2;
+	siz = 8;
+	recur(1,8);
+}
