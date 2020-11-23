@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+int cnt;
+vector <pair<int,int>> Edges[100005];//node number and weight
+bool Visit[100005];//figure out the answer
+long long L[100005];//length of shortest path
+int pre[100005];
+
+struct node{
+	long long l;
+    int w, a, b; //a->b b is present
+}nn[1000006];
+struct cmp{
+	bool operator()(node a,node b){
+		return a.l > b.l;
+	}
+};
+
+priority_queue<node,vector <node>, cmp>PQ;
+void dijkstra(int s)
+{
+	cnt = 1;
+    int i;
+    nn[cnt].l = 0; nn[cnt].w = 0;
+	nn[cnt].a = 0; nn[cnt].b = s;
+    PQ.push(nn[cnt]);
+	cnt++;
+    while (!PQ.empty()) {
+		
+		nn[0].l = PQ.top().l;nn[0].a = PQ.top().a;nn[0].b = PQ.top().b;
+		
+        PQ.pop();
+        if (Visit[nn[0].b]) continue;
+        Visit[nn[0].b] = true;
+		L[nn[0].b] = nn[0].l;
+		pre[nn[0].b] = nn[0].a;
+        for (i = 0; i < Edges[nn[0].b].size(); i++) {
+            nn[cnt].l = L[nn[0].b] + Edges[nn[0].b][i].second; 
+			nn[cnt].a = nn[0].b;
+			nn[cnt].b = Edges[nn[0].b][i].first;
+            PQ.push(nn[cnt]);
+			cnt++;
+        }
+		
+    }
+}
+ 
+int main(){
+	int n,m,s,r,w;
+	int i,j;
+	scanf("%d %d",&n,&m);
+	for(i=1;i<=m;i++){
+		scanf("%d %d %d",&s,&r,&w);
+		Edges[s].push_back(make_pair(r,w));
+		Edges[r].push_back(make_pair(s,w));
+	}
+	for (i = 1; i <= n; i++) L[i] = 1000000000000;
+    dijkstra(1);
+	cout<<L[n]<<endl;
+ 
+	return 0;
+}
